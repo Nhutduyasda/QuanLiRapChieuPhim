@@ -1,0 +1,23 @@
+# Bỏ các thư mục build
+bin/
+obj/
+.vs/
+
+# Bỏ file user settings
+*.user
+*.suo
+
+# Bỏ file debug
+*.pdb
+
+# Bỏ file log, tạm
+*.log
+*.tmp
+
+# Bỏ cache của Copilot hoặc các extension
+*.db-shm
+*.db-wal
+*.vsidx
+
+# Thư mục publish (nếu có)
+publish/
