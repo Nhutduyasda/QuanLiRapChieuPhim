@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DAL_Service\DAL_Service.csproj" />
+  </ItemGroup>
+
 </Project>
