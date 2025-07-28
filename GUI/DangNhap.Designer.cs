@@ -70,6 +70,7 @@
             btnThoat.TabIndex = 9;
             btnThoat.Text = "Thoát";
             btnThoat.UseVisualStyleBackColor = false;
+            btnThoat.Click += btnThoat_Click_1;
             // 
             // label3
             // 
@@ -104,6 +105,7 @@
             // 
             txtMatKhau.Location = new Point(181, 195);
             txtMatKhau.Name = "txtMatKhau";
+            txtMatKhau.PasswordChar = '*';
             txtMatKhau.Size = new Size(249, 27);
             txtMatKhau.TabIndex = 4;
             // 
@@ -117,18 +119,20 @@
             chkHienThi.TabIndex = 3;
             chkHienThi.Text = "Hiển thị";
             chkHienThi.UseVisualStyleBackColor = true;
+            chkHienThi.CheckedChanged += chkHienThi_CheckedChanged_1;
             // 
             // btnDangNhap
             // 
             btnDangNhap.BackColor = Color.SeaGreen;
             btnDangNhap.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDangNhap.ForeColor = Color.White;
-            btnDangNhap.Location = new Point(48, 326);
+            btnDangNhap.Location = new Point(69, 326);
             btnDangNhap.Name = "btnDangNhap";
             btnDangNhap.Size = new Size(127, 42);
             btnDangNhap.TabIndex = 2;
             btnDangNhap.Text = "Đăng nhập";
             btnDangNhap.UseVisualStyleBackColor = false;
+            btnDangNhap.Click += btnDangNhap_Click_1;
             // 
             // label1
             // 
@@ -151,6 +155,8 @@
             Controls.Add(groupBox1);
             Name = "frmDangNhap";
             Text = "DangNhap";
+            FormClosing += frmDangNhap_FormClosing;
+            Load += frmDangNhap_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
@@ -163,9 +169,9 @@
         private Label label2;
         private TextBox txtTaiKhoan;
         private TextBox txtMatKhau;
-        private CheckBox chkHienThi;
         private Button btnDangNhap;
         private Label label1;
         private Button btnThoat;
+        private CheckBox chkHienThi;
     }
 }

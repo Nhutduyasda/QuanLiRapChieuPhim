@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL_Service;
+using DTO_Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,8 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DAL_Service;
-using DTO_Model;
+using UTIL_Valication;
 
 namespace GUI
 {
@@ -23,6 +24,7 @@ namespace GUI
             LoadDataGridView();
             LoadComboBoxPhim();
             LoadComBoxPhongChieu();
+           
 
         }
         public string MaSuatChieu => txtMaSuatChieu.Text.Trim();
@@ -78,6 +80,37 @@ namespace GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Kiểm tra ngày chiếu không ở quá khứ
+            if (!Valication.IsValidFutureDate(dateTimePicker_NgayChieu.Value.Date))
+            {
+                MessageBox.Show("Ngày chiếu không được ở quá khứ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra giờ bắt đầu < giờ kết thúc
+            TimeSpan gioBatDau, gioKetThuc;
+            if (!TimeSpan.TryParse(txtBatDau.Text, out gioBatDau) || !TimeSpan.TryParse(txtKetThuc.Text, out gioKetThuc))
+            {
+                MessageBox.Show("Định dạng giờ không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!Valication.IsStartTimeBeforeEndTime(gioBatDau, gioKetThuc))
+            {
+                MessageBox.Show("Giờ bắt đầu phải nhỏ hơn giờ kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra suất chiếu có chưa
+            if (!Valication.IsRoomAvailableForTime(
+                cboPhongChieu.SelectedValue.ToString(),
+                dateTimePicker_NgayChieu.Value.Date,
+                gioBatDau,
+                gioKetThuc,
+                suatChieu.selectAll()))
+            {
+                MessageBox.Show("Phòng chiếu đã có suất chiếu trong khoảng thời gian này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 if (dgvSuatChieuPhim.SelectedRows.Count > 0)
@@ -109,8 +142,55 @@ namespace GUI
 
         }
 
+       
+
         private void btnThem_Click(object sender, EventArgs e)
         {
+           
+            if (string.IsNullOrWhiteSpace(cboPhim.SelectedValue?.ToString()) ||
+                string.IsNullOrWhiteSpace(cboPhongChieu.SelectedValue?.ToString()) ||
+                string.IsNullOrWhiteSpace(txtBatDau.Text) ||
+                string.IsNullOrWhiteSpace(txtKetThuc.Text) ||
+                string.IsNullOrWhiteSpace(txtGiaVe.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra ngày chiếu không ở quá khứ
+            if (!Valication.IsValidFutureDate(dateTimePicker_NgayChieu.Value.Date))
+            {
+                MessageBox.Show("Ngày chiếu không được ở quá khứ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra giờ bắt đầu < giờ kết thúc
+            TimeSpan gioBatDau, gioKetThuc;
+            if (!TimeSpan.TryParse(txtBatDau.Text, out gioBatDau) || !TimeSpan.TryParse(txtKetThuc.Text, out gioKetThuc))
+            {
+                MessageBox.Show("Định dạng giờ không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!Valication.IsStartTimeBeforeEndTime(gioBatDau, gioKetThuc))
+            {
+                MessageBox.Show("Giờ bắt đầu phải nhỏ hơn giờ kết thúc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra suất chiếu có chưa
+            if (!Valication.IsRoomAvailableForTime(
+                cboPhongChieu.SelectedValue.ToString(),
+                dateTimePicker_NgayChieu.Value.Date,
+                gioBatDau,
+                gioKetThuc,
+                suatChieu.selectAll()))
+            {
+                MessageBox.Show("Phòng chiếu đã có suất chiếu trong khoảng thời gian này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+
             try
             {
                 SuatChieuDTO suatChieuDTO = new SuatChieuDTO

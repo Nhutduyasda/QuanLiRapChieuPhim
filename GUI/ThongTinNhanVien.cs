@@ -101,8 +101,8 @@ namespace GUI
                     TenNhanVien = txtHoTen.Text,
                     SoDienThoai = txtSoDienThoai.Text,
                     Email = txtEmail.Text,
-                    ChucVu = cboChucVu.Text,
-                    MatKhau = txtMatKhau.Text
+                   ChucVu = cboChucVu.Text == "Quản lý" ? true : false,
+                    MatKhauHash = txtMatKhau.Text
                 };
                 nhanVienDAL.Insert(nhanVien);
                 LoadDSNhanVien();
@@ -153,8 +153,8 @@ namespace GUI
                         TenNhanVien = txtHoTen.Text,
                         SoDienThoai = txtSoDienThoai.Text,
                         Email = txtEmail.Text,
-                        ChucVu = cboChucVu.Text,
-                        MatKhau = txtMatKhau.Text
+                        ChucVu = cboChucVu.Text == "Quản lý" ? true : false,
+                        MatKhauHash = txtMatKhau.Text
                     };
                     nhanVienDAL.Update(nhanVien);
                     ClearInputFields();

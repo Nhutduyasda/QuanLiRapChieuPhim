@@ -19,30 +19,40 @@ namespace GUI
         public frmDangNhap()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void btnDangNhap_Click(object sender, EventArgs e)
+
+        private void btnDangNhap_Click_1(object sender, EventArgs e)
         {
-            string MaNhanVien = txtTaiKhoan.Text.Trim();
-            string password = txtMatKhau.Text.Trim();
-            NhanVienDTO nhanVien = nvDAL.selectById(MaNhanVien);
+            if (string.IsNullOrWhiteSpace(txtTaiKhoan.Text) || string.IsNullOrWhiteSpace(txtMatKhau.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tài khoản và mật khẩu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string maNhanVien = txtTaiKhoan.Text.Trim();
+            string matKhau = txtMatKhau.Text.Trim();
+            NhanVienDTO nhanVien = nvDAL.selectById(maNhanVien);
+
             if (nhanVien == null)
             {
-                MessageBox.Show("Tài khoản không tồn tại!");
-
+                MessageBox.Show("Tài khoản không tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (!nhanVien.MatKhau.Equals(password))
+            else if (nhanVien.MatKhauHash != matKhau)
             {
                 MessageBox.Show("Mật khẩu không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 AuthUtil.user = nhanVien;
-                this.Dispose();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
+
         }
 
-        private void btnThoat_Click(object sender, EventArgs e)
+        private void btnThoat_Click_1(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thoát không?", "Xác nhận thoát", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -51,12 +61,22 @@ namespace GUI
             }
         }
 
-
-
-        private void chkHienThi_CheckedChanged(object sender, EventArgs e)
+        private void chkHienThi_CheckedChanged_1(object sender, EventArgs e)
         {
             txtMatKhau.PasswordChar = chkHienThi.Checked ? '\0' : '*';
         }
 
+        private void frmDangNhap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && this.DialogResult != DialogResult.OK)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void frmDangNhap_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

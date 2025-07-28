@@ -10,10 +10,10 @@ namespace DTO_Model
     {
         public string? MaNhanVien { get; set; }
         public string? TenNhanVien { get; set; }
-        public string? ChucVu { get; set; }
+        public Boolean? ChucVu { get; set; }
         public string? SoDienThoai { get; set; }
         public string? Email { get; set; }
-        public string? MatKhau { get; set; }
+        public string? MatKhauHash { get; set; }
 
     }
 }

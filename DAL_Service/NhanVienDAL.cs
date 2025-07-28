@@ -41,10 +41,10 @@ namespace DAL_Service
                     {
                         MaNhanVien = reader["MaNhanVien"].ToString(),
                         TenNhanVien = reader["TenNhanVien"].ToString(),
-                        ChucVu = reader["ChucVu"].ToString(),
+                        ChucVu = reader["ChucVu"] != DBNull.Value ? (bool)reader["ChucVu"] : false,
                         SoDienThoai = reader["SoDienThoai"].ToString(),
                         Email = reader["Email"].ToString(),
-                        MatKhau = reader["MatKhauHash"].ToString(),
+                        MatKhauHash = reader["MatKhauHash"].ToString(),
                     };
                     list.Add(nhanVien);
                 }
@@ -66,7 +66,7 @@ namespace DAL_Service
                 entity.ChucVu,
                 entity.SoDienThoai,
                 entity.Email,
-                entity.MatKhau
+                entity.MatKhauHash
             };
             DBUTIL.Update(sql, parameters);
         }
@@ -81,7 +81,7 @@ namespace DAL_Service
                 entity.ChucVu,
                 entity.SoDienThoai,
                 entity.Email,
-                entity.MatKhau
+                entity.MatKhauHash
             };
             DBUTIL.Update(sql, parameters);
         }

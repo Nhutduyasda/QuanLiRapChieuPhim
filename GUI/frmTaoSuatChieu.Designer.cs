@@ -124,13 +124,15 @@
             // 
             // btnXoa
             // 
+            btnXoa.BackColor = Color.FromArgb(0, 192, 0);
             btnXoa.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            btnXoa.ForeColor = SystemColors.ButtonHighlight;
             btnXoa.Location = new Point(657, 652);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(153, 38);
             btnXoa.TabIndex = 20;
             btnXoa.Text = "Xoá";
-            btnXoa.UseVisualStyleBackColor = true;
+            btnXoa.UseVisualStyleBackColor = false;
             btnXoa.Click += btnXoa_Click;
             // 
             // txtGiaVe
@@ -190,35 +192,41 @@
             // 
             // btnThem
             // 
+            btnThem.BackColor = Color.FromArgb(0, 192, 0);
             btnThem.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            btnThem.ForeColor = SystemColors.ButtonHighlight;
             btnThem.Location = new Point(120, 652);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(153, 38);
             btnThem.TabIndex = 32;
             btnThem.Text = "Thêm";
-            btnThem.UseVisualStyleBackColor = true;
+            btnThem.UseVisualStyleBackColor = false;
             btnThem.Click += btnThem_Click;
             // 
             // btnSua
             // 
+            btnSua.BackColor = Color.FromArgb(0, 192, 0);
             btnSua.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            btnSua.Location = new Point(393, 652);
+            btnSua.ForeColor = SystemColors.ButtonHighlight;
+            btnSua.Location = new Point(389, 652);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(153, 38);
             btnSua.TabIndex = 33;
             btnSua.Text = "Sửa";
-            btnSua.UseVisualStyleBackColor = true;
+            btnSua.UseVisualStyleBackColor = false;
             btnSua.Click += button1_Click;
             // 
             // btnLamMoi
             // 
+            btnLamMoi.BackColor = Color.FromArgb(0, 192, 0);
             btnLamMoi.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            btnLamMoi.ForeColor = SystemColors.ButtonHighlight;
             btnLamMoi.Location = new Point(918, 652);
             btnLamMoi.Name = "btnLamMoi";
             btnLamMoi.Size = new Size(153, 38);
             btnLamMoi.TabIndex = 34;
             btnLamMoi.Text = "Làm Mới";
-            btnLamMoi.UseVisualStyleBackColor = true;
+            btnLamMoi.UseVisualStyleBackColor = false;
             btnLamMoi.Click += btnLamMoi_Click;
             // 
             // cboPhim
@@ -280,7 +288,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "frmTaoSuatChieu";
-            Text = "v";
+            Text = "frmTaoSuatChieu";
             ((System.ComponentModel.ISupportInitialize)dgvSuatChieuPhim).EndInit();
             ResumeLayout(false);
             PerformLayout();

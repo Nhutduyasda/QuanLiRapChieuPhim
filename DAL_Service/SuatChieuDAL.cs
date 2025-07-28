@@ -103,17 +103,17 @@ namespace DAL_Service
         public List<SuatChieuView> SelectViewPhimSuatChieu()
         {
             List<SuatChieuView> list = new List<SuatChieuView>();
-            string sql = @"
-        SELECT 
-            SC.MaSuatChieu,
-            P.TenPhim,
-            PC.TenPhongChieu,
-            P.HinhAnh,
-            SC.GiaVe
-        FROM SUAT_CHIEU SC
-        JOIN PHIM P ON SC.MaPhim = P.MaPhim
-        JOIN PHONG_CHIEU PC ON SC.MaPhongChieu = PC.MaPhongChieu
-    ";
+                        string sql = @"
+                    SELECT 
+                        SC.MaSuatChieu,
+                        P.TenPhim,
+                        PC.TenPhongChieu,
+                        P.HinhAnh,
+                        SC.GiaVe
+                    FROM SUAT_CHIEU SC
+                    JOIN PHIM P ON SC.MaPhim = P.MaPhim
+                    JOIN PHONG_CHIEU PC ON SC.MaPhongChieu = PC.MaPhongChieu
+                ";
 
             try
             {

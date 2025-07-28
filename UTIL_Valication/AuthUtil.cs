@@ -12,12 +12,6 @@ namespace UTIL_Valication
         public static NhanVienDTO? user = null;
 
 
-        // Đăng xuất người dùng hiện tại
-        public static void Logout()
-        {
-            user = null;
-        }
-
 
         //Kiểm tra trạng thái đăng nhập
         public static Boolean IsLogin()
@@ -25,10 +19,14 @@ namespace UTIL_Valication
             return user != null;
         }
 
-        //Liểm tra quyền quản lý của tài khoản
+        //kiểm tra quyền quản lý của tài khoản   
+
         public static Boolean IsManager()
         {
-            return user != null && user.ChucVu == "true";
+            return user != null && user.ChucVu == true;
+
         }
+
+
     }
 }
