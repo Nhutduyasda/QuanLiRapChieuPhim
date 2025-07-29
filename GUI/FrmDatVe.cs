@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAL_Service;
 using DTO_Model;
+using UTIL_Valication;
 
 namespace GUI
 {
@@ -159,6 +160,15 @@ namespace GUI
                 string gheDaChon = txtGheDaChon.Text;
                 string tongTien = txtTongTienVe.Text;
 
+                // 2. Kiểm tra thời gian đặt vé
+                DateTime thoiGianDatVe = DateTime.Now;
+                if (!Valication.IsValidThoiGianDatVe(thoiGianDatVe))
+                {
+                    MessageBox.Show("Thời gian đặt vé không hợp lệ (không thể đặt vé trong quá khứ).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
                 // 3. Tạo mã đặt vé & đối tượng DatVe
                 string maDatVe = "DV" + Guid.NewGuid().ToString("N").Substring(0, 8);
                 
@@ -167,7 +177,7 @@ namespace GUI
                     MaDatVe = maDatVe,
                     MaKhachHang = maKH,
                     MaNhanVien = "NV001", // Hoặc lấy từ đăng nhập
-                    ThoiGianDatVe = DateTime.Now,
+                    ThoiGianDatVe = thoiGianDatVe,
                     TongTien = decimal.Parse(tongTien.Replace(" VNĐ", "").Replace(",", "")),
                     TrangThaiThanhToan = "Chờ xử lý"
                 };

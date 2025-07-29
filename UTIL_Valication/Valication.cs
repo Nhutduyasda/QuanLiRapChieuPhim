@@ -34,5 +34,34 @@ namespace UTIL_Valication
 
             return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$");
         }
+        /// <summary>
+        /// Kiểm tra thời gian đặt vé hợp lệ (Không được đặt vé trong quá khứ).
+        /// </summary>
+        /// <param name="thoiGianDatVe">Thời gian đặt vé cần kiểm tra.</param>"
+        /// <returns>True nếu hợp lệ, ngược lại là false</returns>
+        public static bool IsValidThoiGianDatVe(DateTime thoiGianDatVe)
+        { 
+            if (thoiGianDatVe < DateTime.Now)
+            {
+                return false; // Không được đặt vé trong quá khứ
+            }
+            return true; // Thời gian đặt vé hợp lệ
+        }
+        /// <summary>
+        /// Kiểm tra mật khẩu hợp lệ (ít nhất 6 ký tự, bao gồm 1 chữ cái và 1 chữ số).
+        /// </summary>
+        /// <param name="matKhau">Chuỗi mật khẩu cần kiểm tra.</param>"
+        /// <returns>True nếu hợp lệ, ngược lại là false</returns>
+        public static bool IsValidPassword(string matKhau)
+        {
+            if (string.IsNullOrWhiteSpace(matKhau) || matKhau.Length < 6)
+                return false;
+            bool hasLetter = matKhau.Any(char.IsLetter);
+            bool hasDigit = matKhau.Any(char.IsDigit);
+            return hasLetter && hasDigit;
+        }
+        /// <summary>
+        /// Kiểm tra họ tên hợp lệ (không chứa ký tự đặc biệt, chỉ cho phép chữ cái, khoảng trắng
+        /// ).
     }
 }

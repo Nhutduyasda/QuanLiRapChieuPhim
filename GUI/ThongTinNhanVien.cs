@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAL_Service;
 using DTO_Model;
+using UTIL_Valication;
 
 namespace GUI
 {
@@ -95,6 +96,29 @@ namespace GUI
         {
             try
             {
+                string soDienThoai = txtSoDienThoai.Text;
+                string email = txtEmail.Text;
+                string matKhau = txtMatKhau.Text;
+                if (string.IsNullOrWhiteSpace(txtHoTen.Text) || string.IsNullOrWhiteSpace(soDienThoai) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(matKhau))
+                {
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Valication.IsValidPhoneNumber(soDienThoai))
+                {
+                    MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Valication.IsValidGmail(email))
+                {
+                    MessageBox.Show("Email không hợp lệ. Vui lòng nhập lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Valication.IsValidPassword(matKhau))
+                {
+                    MessageBox.Show("Mật khẩu phải ít nhất 6 ký tự, bao gồm ít nhất 1 chữ cái và 1 chữ số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 NhanVienDTO nhanVien = new NhanVienDTO
                 {
                     MaNhanVien = nhanVienDAL.generateAutoMaNhanVien("NHAN_VIEN", "MaNhanVien", "NV"),
@@ -144,6 +168,18 @@ namespace GUI
         {
             try
             {
+                string soDienThoai = txtSoDienThoai.Text;
+                string email = txtEmail.Text;
+                if (!Valication.IsValidPhoneNumber(soDienThoai))
+                {
+                    MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Valication.IsValidGmail(email))
+                {
+                    MessageBox.Show("Email không hợp lệ. Vui lòng nhập lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 if (dgvDanhSachNV.SelectedRows.Count > 0)
                 {
                     string maNhanVien = dgvDanhSachNV.SelectedRows[0].Cells["MaNhanVien"].Value.ToString();
