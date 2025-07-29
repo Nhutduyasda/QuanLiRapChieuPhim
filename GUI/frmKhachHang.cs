@@ -35,7 +35,7 @@ namespace GUI
             if (list.Count > 0 && list != null)
             {
                 dgvDanhSachKH.DataSource = list;
-                dgvDanhSachKH.Columns["MatKhau"].Visible = false;
+                dgvDanhSachKH.Columns["MatKhauHash].Visible = false;
             }
         }
 
