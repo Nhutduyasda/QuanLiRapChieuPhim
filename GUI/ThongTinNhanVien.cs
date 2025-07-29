@@ -86,10 +86,17 @@ namespace GUI
                 txtHoTen.Text = row.Cells["TenNhanVien"].Value.ToString();
                 txtSoDienThoai.Text = row.Cells["SoDienThoai"].Value.ToString();
                 txtEmail.Text = row.Cells["Email"].Value.ToString();
-                cboChucVu.Text = row.Cells["ChucVu"].Value.ToString();
+                txtMatKhau.Text = row.Cells["MatKhau"].Value.ToString();
 
+                // Chuyển đổi giá trị ChucVu
+                var chucVuValue = row.Cells["ChucVu"].Value?.ToString();
+                if (chucVuValue == "True")
+                    cboChucVu.Text = "Quản lý";
+                else if (chucVuValue == "False")
+                    cboChucVu.Text = "Nhân viên";
+                else
+                    cboChucVu.Text = chucVuValue; // Trường hợp đã là "Quản lý"/"Nhân viên"
             }
-
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -119,13 +126,15 @@ namespace GUI
                     MessageBox.Show("Mật khẩu phải ít nhất 6 ký tự, bao gồm ít nhất 1 chữ cái và 1 chữ số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                // Chuyển đổi ChucVu sang kiểu bool
+                bool isManager = cboChucVu.Text == "Quản lý";
                 NhanVienDTO nhanVien = new NhanVienDTO
                 {
                     MaNhanVien = nhanVienDAL.generateAutoMaNhanVien("NHAN_VIEN", "MaNhanVien", "NV"),
                     TenNhanVien = txtHoTen.Text,
                     SoDienThoai = txtSoDienThoai.Text,
                     Email = txtEmail.Text,
-                    ChucVu = cboChucVu.Text,
+                    ChucVu = isManager.ToString(),
                     MatKhau = txtMatKhau.Text
                 };
                 nhanVienDAL.Insert(nhanVien);
@@ -183,13 +192,14 @@ namespace GUI
                 if (dgvDanhSachNV.SelectedRows.Count > 0)
                 {
                     string maNhanVien = dgvDanhSachNV.SelectedRows[0].Cells["MaNhanVien"].Value.ToString();
+                    bool isManager = cboChucVu.Text == "Quản lý";
                     NhanVienDTO nhanVien = new NhanVienDTO
                     {
                         MaNhanVien = maNhanVien,
                         TenNhanVien = txtHoTen.Text,
                         SoDienThoai = txtSoDienThoai.Text,
                         Email = txtEmail.Text,
-                        ChucVu = cboChucVu.Text,
+                        ChucVu = isManager.ToString(),
                         MatKhau = txtMatKhau.Text
                     };
                     nhanVienDAL.Update(nhanVien);
@@ -226,6 +236,19 @@ namespace GUI
             LoadDSNhanVien();
             MessageBox.Show("Đã làm mới danh sách nhân viên.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+        }
+
+        private void dgvDanhSachNV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvDanhSachNV.Columns[e.ColumnIndex].Name == "ChucVu" && e.Value != null)
+            {
+                bool isManager = false;
+                if (bool.TryParse(e.Value.ToString(), out isManager))
+                {
+                    e.Value = isManager ? "Quản Lý" : "Nhân viên";
+                    e.FormattingApplied = true;
+                }
+            }
         }
     }
 }

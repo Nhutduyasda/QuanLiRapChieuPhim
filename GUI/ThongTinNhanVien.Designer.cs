@@ -177,6 +177,7 @@
             dgvDanhSachNV.TabIndex = 12;
             dgvDanhSachNV.CellClick += dgvDanhSachNV_CellClick;
             dgvDanhSachNV.CellContentClick += dgvDanhSachNV_CellContentClick;
+            dgvDanhSachNV.CellFormatting += dgvDanhSachNV_CellFormatting;
             // 
             // label6
             // 
@@ -225,6 +226,7 @@
             // 
             txtMatKhau.Location = new Point(42, 373);
             txtMatKhau.Name = "txtMatKhau";
+            txtMatKhau.PasswordChar = '*';
             txtMatKhau.Size = new Size(241, 27);
             txtMatKhau.TabIndex = 19;
             // 

@@ -83,7 +83,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(188, 316);
+            txtEmail.Location = new Point(188, 304);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(249, 27);
             txtEmail.TabIndex = 10;
@@ -93,11 +93,11 @@
             label4.AutoSize = true;
             label4.BackColor = SystemColors.Control;
             label4.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
-            label4.Location = new Point(48, 320);
+            label4.Location = new Point(48, 308);
             label4.Name = "label4";
             label4.Size = new Size(54, 23);
             label4.TabIndex = 9;
-            label4.Text = "email";
+            label4.Text = "Email";
             // 
             // label3
             // 
